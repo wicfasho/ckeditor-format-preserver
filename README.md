@@ -1,1 +1,2 @@
 # ckeditor-format-preserver
+# OK
