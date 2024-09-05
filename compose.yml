@@ -1,0 +1,38 @@
+services:
+  test-acf:
+    container_name: test-acf
+    image: adobecoldfusion/coldfusion:latest-2018
+    ports:
+      - 8500:8500
+    environment:
+      acceptEULA: YES
+      password: admin
+    volumes:
+      - ./app:/app
+      - ./lib/mysql-connector-j-9.0.0.jar:/opt/coldfusion/cfusion/lib/mysql-connector-j-9.0.0.jar
+    networks:
+      - test-networks
+    depends_on:
+      - test-mysql-db
+
+  test-mysql-db:
+    image: mysql:8.0
+    container_name: test-mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpassword
+    networks:
+      - test-networks
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
+networks:
+  test-networks:
+    driver: bridge
