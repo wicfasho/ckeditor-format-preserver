@@ -1,0 +1,1 @@
+# ckeditor-format-preserver
